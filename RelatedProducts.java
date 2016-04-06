@@ -1,9 +1,17 @@
 import java.util.*;
 
 public class RelatedProducts {
-	public Map<Long,LinkedHashSet<Long>> customers = new HashMap<Long,LinkedHashSet<Long>>();
-	public Map<Long,LinkedHashSet<Long>> products = new HashMap<Long,LinkedHashSet<Long>>();
-	// Method 1
+	/* I am maintaining two HashMaps to store customers and products
+	The customers hashmap has customerID as key and the productID he/she bought as a LinkedHashSet.
+	I chose a LinkedHashSet because I do not want to register multiple purchases of the same product by one customer.
+	The products hashmap has productID as key and the customerIDs of customers who bought this product as a LinkedHashSet.
+	
+	I am using LinkedHashMap as I want to maintain order of insertion(purchases in other words)
+	*/
+	Map<Long,LinkedHashSet<Long>> customers = new HashMap<Long,LinkedHashSet<Long>>();
+	Map<Long,LinkedHashSet<Long>> products = new HashMap<Long,LinkedHashSet<Long>>();
+	
+	// Method 1. 
 	void registerPurchase(long customerID,long productID){ 
 		if(customers.containsKey(customerID)){
 			if(customers.get(customerID).contains(productID)){
@@ -39,24 +47,24 @@ public class RelatedProducts {
 	ArrayList<Long> getRelatedProducts(long customerID, long productID, int numProducts){
 		ArrayList<Long> relatedProducts = new ArrayList<Long>();
 		long countOfRelatedProducts = 0;
-		//products
+		// retrieve customers who bought the same product
 		LinkedHashSet<Long> customersList = products.get(productID);
 		for(long cid:customersList){
 			if(cid!=customerID)
 			{
 				LinkedHashSet<Long> productsList = customers.get(cid);
-				for(long pid:productsList){
+				for(long pid:productsList){ // retrieve each product bought by a customer related to customerID
 					if(pid!=productID)
 					{
 						relatedProducts.add(pid);
 						countOfRelatedProducts ++;	
 					}
-					if(numProducts==countOfRelatedProducts)
+					if(numProducts==countOfRelatedProducts) // return if numProducts to be returned has been met
 						return relatedProducts;
 				}
 			}
 		}
-		return relatedProducts;
+		return relatedProducts; // This would return even if requested numProducts is greater than available products
 	}
 	
 	// Method 3
@@ -73,7 +81,7 @@ public class RelatedProducts {
 		RelatedProducts rl = new RelatedProducts();
 		rl.registerPurchase(111, 111);
 		rl.registerPurchase(111, 222);
-		//rl.registerPurchase(111, 222);
+		rl.registerPurchase(111, 222); // No harm as we are using a LinkedHashMap- it will not be duplicated.
 		rl.registerPurchase(111, 444);
 		rl.registerPurchase(222, 333);
 		rl.registerPurchase(222, 444);

@@ -114,12 +114,15 @@ public class ProductNotifier {
 					return customersToNotify;
 			}
 		}
-		return customersToNotify; 
+		return customersToNotify; // returns even if number of customers to be notified is greater than the number of number of customer requests for this product
 		
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		/* This is an example I created to check if my logic works
+		I am creating customers with customerIDs and the constructor itself calls 'prime' method on customerID
+		I then create an object for ProductNotifier and include a few customer requests.
+		*/
 		Customer obj1 = new Customer(1);
 		Customer obj2 = new Customer(2);
 		Customer obj3 = new Customer(3);
