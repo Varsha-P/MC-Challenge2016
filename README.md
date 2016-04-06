@@ -1,7 +1,7 @@
 # MC-Challenge2016
 Question: Implement the "people who bought X item also bought Y item" feature in amazon.com?
 
-#include <vector>
+include <vector>
 
 class RelatedProducts {
 public:
@@ -20,7 +20,7 @@ public:
 Problem: Implement the "notify me when the item is in stock" feature in amazon.com
 
 
-#include <vector>
+include <vector>
 
 struct Customer {
     long id;
